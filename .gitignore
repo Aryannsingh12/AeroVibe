@@ -1,0 +1,18 @@
+# Node dependencies
+node_modules/
+npm-debug.log
+
+# Terraform state and caches
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Local Live Telemetry Data Databases
+telemetry-data/prom-storage/
+telemetry-data/grafana-storage/
+telemetry-data/floci/
+
+# Operating system artifacts
+.DS_Store
+Thumbs.db

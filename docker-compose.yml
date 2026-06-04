@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # 1. Virtual AWS Simulation Engine
+  aerovibe-aws:
+    image: floci/floci:latest
+    container_name: aerovibe-local-aws
+    ports:
+      - "4566:4566"
+    volumes:
+      - ./telemetry-data/floci:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock # Allows Floci to dynamically spawn EKS/RDS containers
+    environment:
+      - PERSISTENCE=1
+    networks:
+      - aerovibe-network
+
+  # 2. Prometheus Time-Series Metrics Database
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: aerovibe-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./telemetry-data/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./telemetry-data/prom-storage:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - aerovibe-network
+    depends_on:
+      - aerovibe-aws
+
+  # 3. Grafana Analytics Visualizer Dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: aerovibe-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./telemetry-data/grafana-storage:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - aerovibe-network
+    depends_on:
+      - prometheus
+
+networks:
+  aerovibe-network:
+    driver: bridge

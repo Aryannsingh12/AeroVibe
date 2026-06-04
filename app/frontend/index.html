@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroVibe | Spatial Audio Studio Console</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;600;700&display=swap');
+        body { font-family: 'SF Pro Display', -apple-system, sans-serif; }
+        .blur-gradient {
+            background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%);
+        }
+    </style>
+</head>
+<body class="bg-[#000000] text-[#f5f5f7] min-h-screen overflow-x-hidden flex flex-col justify-between">
+
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] blur-gradient pointer-events-none z-0"></div>
+
+    <nav class="border-b border-white/10 bg-black/60 backdrop-blur-md sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <i class="fa-solid fa-wind text-blue-500 text-xl tracking-widest"></i>
+                <span class="text-lg font-bold tracking-tight text-white">AEROVIBE</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-xs font-medium text-zinc-400">
+                <a href="#" class="hover:text-white transition">Spatial Sound</a>
+                <a href="#" class="hover:text-white transition">Hardware Specifications</a>
+                <a href="#" class="hover:text-white transition">DevOps Telemetry Matrix</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span id="system-status" class="text-[11px] bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded-full flex items-center text-amber-400">
+                    <span class="w-1.5 h-1.5 bg-amber-500 rounded-full inline-block mr-1.5 animate-pulse"></span> Connecting Node...
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10 relative flex-1 w-full">
+        
+        <div class="space-y-6">
+            <span class="text-xs font-semibold tracking-widest text-blue-500 uppercase">Now Engineering Soundwaves</span>
+            <h1 class="text-5xl md:text-6xl font-bold tracking-tight text-white leading-[1.1]">
+                AeroVibe Studio <br>
+                <span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent">Immersive Acoustic Reality</span>
+            </h1>
+            <p class="text-zinc-400 text-lg font-light leading-relaxed max-w-lg">
+                Experience ultra-low latency spatial telemetry processed dynamically across container clusters. Engineered for audiophiles, monitored for enterprise resilience.
+            </p>
+            
+            <div class="pt-4 flex items-center space-x-4">
+                <button onclick="triggerTransaction()" class="bg-white hover:bg-zinc-200 text-black px-6 py-3 rounded-full text-sm font-semibold transition-all shadow-lg shadow-white/5 active:scale-95">
+                    Simulate Product Order
+                </button>
+                <button onclick="triggerFailure()" class="border border-red-500/30 bg-red-950/20 hover:bg-red-900/30 text-red-400 px-5 py-3 rounded-full text-sm font-medium transition active:scale-95">
+                    Inject Mock Traffic Stress
+                </button>
+            </div>
+        </div>
+
+        <div class="space-y-6">
+            <div class="bg-zinc-900/40 border border-zinc-800 p-6 rounded-2xl backdrop-blur-sm space-y-4">
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-3">
+                    <h3 class="text-sm font-semibold tracking-wide text-zinc-300">Live Infrastructure Analytics</h3>
+                    <span class="text-[10px] font-mono bg-blue-950/50 text-blue-400 border border-blue-900/50 px-2 py-0.5 rounded">Scraping: Active</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-black/40 border border-zinc-800/80 p-4 rounded-xl">
+                        <p class="text-xs text-zinc-500 font-medium">Processed Orders</p>
+                        <h4 id="metric-orders" class="text-3xl font-bold mt-1 text-white tracking-tight">0</h4>
+                    </div>
+                    <div class="bg-black/40 border border-zinc-800/80 p-4 rounded-xl">
+                        <p class="text-xs text-zinc-500 font-medium">Injected Error Logs</p>
+                        <h4 id="metric-errors" class="text-3xl font-bold mt-1 text-red-400 tracking-tight">0</h4>
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <div class="flex justify-between text-xs font-mono text-zinc-500">
+                        <span>API Cluster Response Latency</span>
+                        <span id="metric-latency">--ms</span>
+                    </div>
+                    <div class="w-full bg-zinc-950 h-1.5 rounded-full overflow-hidden border border-zinc-900">
+                        <div id="latency-bar" class="bg-gradient-to-r from-blue-500 to-indigo-500 h-full w-0 transition-all duration-300"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-zinc-900 bg-zinc-950/60 p-6 text-center text-xs text-zinc-600">
+        <p>AeroVibe Ecosystem Suite &bull; Orchestrated via Kubernetes &bull; Observable with Prometheus & Grafana</p>
+    </footer>
+
+    <script>
+        const API_URL = window.location.origin;
+
+        async function fetchSystemHealth() {
+            const start = performance.now();
+            try {
+                const response = await fetch(`${API_URL}/api/telemetry`);
+                if (!response.ok) throw new Error();
+                const data = await response.json();
+                
+                const latency = Math.round(performance.now() - start);
+
+                // Update UI State Components
+                document.getElementById('system-status').className = "text-[11px] bg-emerald-950/30 border border-emerald-900/50 px-2.5 py-1 rounded-full flex items-center text-emerald-400";
+                document.getElementById('system-status').innerHTML = `<span class="w-1.5 h-1.5 bg-emerald-500 rounded-full inline-block mr-1.5"></span> Engine: Operational`;
+                
+                document.getElementById('metric-orders').innerText = data.total_orders;
+                document.getElementById('metric-errors').innerText = data.total_errors;
+                document.getElementById('metric-latency').innerText = `${latency}ms`;
+                document.getElementById('latency-bar').style.width = `${Math.min(latency, 100)}%`;
+            } catch (err) {
+                document.getElementById('system-status').className = "text-[11px] bg-rose-950/30 border border-rose-900/50 px-2.5 py-1 rounded-full flex items-center text-rose-400";
+                document.getElementById('system-status').innerHTML = `<span class="w-1.5 h-1.5 bg-rose-500 rounded-full inline-block mr-1.5"></span> Infrastructure Error`;
+            }
+        }
+
+        async function triggerTransaction() {
+            try {
+                await fetch(`${API_URL}/api/order`, { method: 'POST' });
+                fetchSystemHealth();
+            } catch(e) {}
+        }
+
+        async function triggerFailure() {
+            try {
+                await fetch(`${API_URL}/api/error-trigger`, { method: 'POST' });
+                fetchSystemHealth();
+            } catch(e) {}
+        }
+
+        // Continual long-polling verification loop
+        fetchSystemHealth();
+        setInterval(fetchSystemHealth, 4000);
+    </script>
+</body>
+</html>

@@ -49,7 +49,7 @@ The AeroVibe ecosystem is split into four distinct architectural operational lay
 ```text
 AeroVibe/
 ├── app-frontend/
-│   ├── index.html          # Premium Apple-Style UI Layout & Telemetry Script
+│   ├── index.html          # UI Layout & Telemetry Script
 │   └── dockerfile          # Production Nginx Container Configuration
 ├── app-backend/
 │   ├── server.js           # Express REST API Engine & Custom Metrics Registry

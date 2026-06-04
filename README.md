@@ -1,8 +1,4 @@
-Here is the complete, raw, single-block content for your `README.md` file. It includes every single layer—from the core app frontend code you wrote all the way to the Kubernetes manifests and monitoring endpoints.
 
-Simply open your `README.md` in VS Code, delete anything currently in it, paste this entire block below, and save it!
-
-```markdown
 # AeroVibe: Immersive Acoustic Reality Ecosystem Suite
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Infrastructure: Terraform](https://img.shields.io/badge/IaC-Terraform-7B42BC?logo=terraform)](https://www.terraform.io/)
@@ -102,5 +98,5 @@ terraform apply -auto-approve
 * **Declarative Idempotency:** The entire infrastructure profile is locked down inside Git-tracked code manifests, preventing configuration drift across the cluster lifecycle.
 * **Isolated Resource Control:** Kubernetes configurations strictly define maximum `limits` and baseline `requests` for CPU and Memory, ensuring zero pod degradation or noisy-neighbor issues during heavy mock traffic stress injection tests.
 
-```
+
 

@@ -32,7 +32,7 @@ The AeroVibe ecosystem is split into four distinct architectural operational lay
 
 ---
 
-## 🛠️ Technological Blueprint Stack
+##  Technological Blueprint Stack
 
 * **Frontend Engine:** Node.js, Nginx, Tailwind CSS, FontAwesome, JavaScript Long-Polling
 * **Backend Framework:** Node.js Express API, Native Prometheus Client (`prom-client`)
@@ -44,7 +44,7 @@ The AeroVibe ecosystem is split into four distinct architectural operational lay
 
 ---
 
-## 📂 Repository Workspace Blueprint
+##  Repository Workspace Blueprint
 
 ```text
 AeroVibe/
@@ -70,7 +70,7 @@ AeroVibe/
 
 ---
 
-## 💻 Local Workspace Initialization
+##  Local Workspace Initialization
 
 To execute the core telemetry sandbox engines on your local environment, follow this operational runbook:
 
@@ -92,11 +92,14 @@ terraform apply -auto-approve
 
 ---
 
-## 🔒 Enterprise Production & Security Standards Implemented
+##  Enterprise Production & Security Standards Implemented
 
 * **Multi-Stage Container Layering:** Backend Dockerfiles utilize multi-stage compilations to strip execution tools, reducing the production image storage overhead and removing potential server exploit vectors.
 * **Declarative Idempotency:** The entire infrastructure profile is locked down inside Git-tracked code manifests, preventing configuration drift across the cluster lifecycle.
 * **Isolated Resource Control:** Kubernetes configurations strictly define maximum `limits` and baseline `requests` for CPU and Memory, ensuring zero pod degradation or noisy-neighbor issues during heavy mock traffic stress injection tests.
+
+
+#### I used Floci's AWS to fast run the process on local machine, if you want to follow along, go ahead. It will give you faster responses, but, its better to use AWS technology for this project!!!
 
 
 

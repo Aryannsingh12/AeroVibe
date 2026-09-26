@@ -99,7 +99,7 @@ terraform apply -auto-approve
 * **Isolated Resource Control:** Kubernetes configurations strictly define maximum `limits` and baseline `requests` for CPU and Memory, ensuring zero pod degradation or noisy-neighbor issues during heavy mock traffic stress injection tests.
 
 
-#### I used Floci's AWS to fast run the process on local machine, if you want to follow along, go ahead. It will give you faster responses, but, its better to use AWS technology for this project!!!
+#### I used Floci's AWS to fast run the process on local machine, if you want to follow along, go ahead. It will give you faster responses. But, its better to use AWS technology for this project!
 
 
 
